@@ -5,9 +5,7 @@ import { MetricCard } from '@/components/shared/MetricCard';
 import { StatusBadge } from '@/components/shared/StatusBadge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
-import { Label } from '@/components/ui/label';
-import { 
+import {
   Monitor, 
   User, 
   Globe, 
@@ -20,7 +18,7 @@ import {
 } from 'lucide-react';
 
 export default function HomePage() {
-  const { currentAgent, isAdmin, setIsAdmin } = useApp();
+  const { currentAgent } = useApp();
 
   if (!currentAgent) {
     return (
@@ -50,22 +48,10 @@ export default function HomePage() {
           description={`Connected as ${currentAgent.hostname}`}
           icon="🛠️"
         />
-        <div className="flex items-center gap-4">
-          <div className="flex items-center gap-2">
-            <Switch
-              id="admin-mode"
-              checked={isAdmin}
-              onCheckedChange={setIsAdmin}
-            />
-            <Label htmlFor="admin-mode" className="text-sm font-medium">
-              Admin Mode
-            </Label>
-          </div>
-          <Button variant="outline" size="sm" className="gap-2">
-            <RefreshCw className="w-4 h-4" />
-            Refresh
-          </Button>
-        </div>
+        <Button variant="outline" size="sm" className="gap-2">
+          <RefreshCw className="w-4 h-4" />
+          Refresh
+        </Button>
       </div>
 
       {/* Connection Status */}
