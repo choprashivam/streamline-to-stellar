@@ -1,6 +1,9 @@
-import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useCallback, ReactNode, useMemo } from 'react';
 import type { Agent, Ticket, ChatMessage } from '@/types';
 import { mockAgents, mockTickets, mockChatMessages } from '@/lib/mock-data';
+
+// Admin users list - matches app.py
+const ADMIN_USERS = ["ShivamChopra", "Administrator", "admin"];
 
 interface AppContextType {
   // Agent state
@@ -8,7 +11,6 @@ interface AppContextType {
   currentAgent: Agent | null;
   setCurrentAgent: (agent: Agent | null) => void;
   isAdmin: boolean;
-  setIsAdmin: (isAdmin: boolean) => void;
 
   // Tickets
   tickets: Ticket[];
@@ -27,7 +29,11 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export function AppProvider({ children }: { children: ReactNode }) {
   const [agents] = useState<Agent[]>(mockAgents);
   const [currentAgent, setCurrentAgent] = useState<Agent | null>(mockAgents[0]);
-  const [isAdmin, setIsAdmin] = useState(false);
+  
+  // Admin status is derived from current agent's username
+  const isAdmin = useMemo(() => {
+    return currentAgent ? ADMIN_USERS.includes(currentAgent.username) : false;
+  }, [currentAgent]);
   const [tickets, setTickets] = useState<Ticket[]>(mockTickets);
   const [chatMessages, setChatMessages] = useState<Record<string, ChatMessage[]>>(mockChatMessages);
   const [selectedChatAgent, setSelectedChatAgent] = useState<string | null>(null);
@@ -69,7 +75,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
         currentAgent,
         setCurrentAgent,
         isAdmin,
-        setIsAdmin,
         tickets,
         addTicket,
         updateTicketStatus,
