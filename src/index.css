@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -17,7 +19,7 @@
     --popover-foreground: 222 47% 11%;
 
     /* Primary - Vibrant indigo-blue */
-    --primary: 226 71% 40%;
+    --primary: 21 90.2439% 48.2353%;
     --primary-foreground: 0 0% 100%;
 
     /* Secondary - Soft slate */
