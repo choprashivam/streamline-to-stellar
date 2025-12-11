@@ -5,7 +5,7 @@ export const mockAgents: Agent[] = [
   {
     agent_id: 'INL-PC-001-abc123',
     hostname: 'DESKTOP-DEV01',
-    username: 'JohnDoe',
+    username: 'ShivamChopra',
     ip_address: '192.168.1.101',
     os: 'Windows 11 Pro',
     online: true,
