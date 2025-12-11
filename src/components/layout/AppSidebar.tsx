@@ -10,7 +10,7 @@ import {
   Shield,
   ChevronLeft,
   ChevronRight,
-  Cpu,
+  Zap,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -39,78 +39,92 @@ export function AppSidebar() {
   return (
     <aside
       className={cn(
-        'h-screen sticky top-0 flex flex-col transition-all duration-300 ease-in-out',
-        'bg-sidebar text-sidebar-foreground',
-        collapsed ? 'w-16' : 'w-64'
+        'h-screen sticky top-0 flex flex-col transition-all duration-300 ease-in-out border-r border-border/50',
+        'bg-sidebar',
+        collapsed ? 'w-20' : 'w-72'
       )}
-      style={{ background: 'var(--gradient-sidebar)' }}
     >
       {/* Logo */}
-      <div className="flex items-center justify-between p-4 border-b border-sidebar-border/30">
+      <div className="flex items-center justify-between p-5 border-b border-border/30">
         {!collapsed && (
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg bg-sidebar-primary flex items-center justify-center">
-              <Cpu className="w-5 h-5 text-sidebar-primary-foreground" />
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg glow-primary">
+              <Zap className="w-5 h-5 text-white" />
             </div>
-            <span className="font-bold text-lg">SYS AI</span>
+            <div>
+              <span className="font-bold text-xl tracking-tight">SYS AI</span>
+              <p className="text-xs text-muted-foreground">IT Support</p>
+            </div>
           </div>
         )}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-sidebar-foreground hover:bg-sidebar-accent"
-          onClick={() => setCollapsed(!collapsed)}
-        >
-          {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
-        </Button>
+        {collapsed && (
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mx-auto shadow-lg glow-primary">
+            <Zap className="w-5 h-5 text-white" />
+          </div>
+        )}
       </div>
 
+      {/* Toggle Button */}
+      <Button
+        variant="ghost"
+        size="icon"
+        className={cn(
+          "absolute -right-3 top-16 z-10 h-6 w-6 rounded-full border border-border bg-background shadow-md hover:bg-secondary",
+        )}
+        onClick={() => setCollapsed(!collapsed)}
+      >
+        {collapsed ? <ChevronRight className="w-3 h-3" /> : <ChevronLeft className="w-3 h-3" />}
+      </Button>
+
       {/* Navigation */}
-      <nav className="flex-1 p-2 space-y-1 overflow-y-auto custom-scrollbar">
+      <nav className="flex-1 p-3 space-y-1 overflow-y-auto custom-scrollbar">
+        <p className={cn("px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider", collapsed && "text-center")}>
+          {collapsed ? '•••' : 'Navigation'}
+        </p>
         {navItems.map(item => (
           <NavLink
             key={item.to}
             to={item.to}
             className={({ isActive }) =>
               cn(
-                'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200',
-                'hover:bg-sidebar-accent/50',
+                'flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200',
+                'hover:bg-secondary/80',
+                collapsed && 'justify-center',
                 isActive
-                  ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
-                  : 'text-sidebar-foreground/80'
+                  ? 'bg-primary/10 text-primary border border-primary/20 shadow-sm'
+                  : 'text-muted-foreground hover:text-foreground'
               )
             }
           >
             <item.icon className="w-5 h-5 flex-shrink-0" />
-            {!collapsed && <span className="truncate">{item.label}</span>}
+            {!collapsed && <span className="font-medium">{item.label}</span>}
           </NavLink>
         ))}
 
         {/* Admin Section */}
         {isAdmin && (
           <>
-            <div className={cn('my-4 border-t border-sidebar-border/30', collapsed && 'mx-2')} />
-            {!collapsed && (
-              <p className="px-3 py-1 text-xs font-semibold text-sidebar-foreground/50 uppercase tracking-wider">
-                Admin
-              </p>
-            )}
+            <div className={cn('my-4 border-t border-border/30', collapsed && 'mx-2')} />
+            <p className={cn("px-3 py-2 text-xs font-semibold text-muted-foreground uppercase tracking-wider", collapsed && "text-center")}>
+              {collapsed ? '👑' : 'Admin'}
+            </p>
             {adminItems.map(item => (
               <NavLink
                 key={item.to}
                 to={item.to}
                 className={({ isActive }) =>
                   cn(
-                    'flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200',
-                    'hover:bg-sidebar-accent/50',
+                    'flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200',
+                    'hover:bg-accent/10',
+                    collapsed && 'justify-center',
                     isActive
-                      ? 'bg-sidebar-accent text-sidebar-accent-foreground font-medium'
-                      : 'text-sidebar-foreground/80'
+                      ? 'bg-accent/10 text-accent border border-accent/20 shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground'
                   )
                 }
               >
                 <item.icon className="w-5 h-5 flex-shrink-0" />
-                {!collapsed && <span className="truncate">{item.label}</span>}
+                {!collapsed && <span className="font-medium">{item.label}</span>}
               </NavLink>
             ))}
           </>
@@ -118,19 +132,23 @@ export function AppSidebar() {
       </nav>
 
       {/* User Info */}
-      {currentAgent && !collapsed && (
-        <div className="p-4 border-t border-sidebar-border/30">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-sidebar-accent flex items-center justify-center">
-              <span className="text-sm font-semibold">
-                {currentAgent.username.charAt(0).toUpperCase()}
-              </span>
+      {currentAgent && (
+        <div className={cn("p-4 border-t border-border/30", collapsed && "px-2")}>
+          <div className={cn("flex items-center gap-3 p-3 rounded-xl bg-secondary/50", collapsed && "justify-center")}>
+            <div className="relative">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center border border-primary/20">
+                <span className="text-sm font-bold text-primary">
+                  {currentAgent.username.charAt(0).toUpperCase()}
+                </span>
+              </div>
+              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-success border-2 border-sidebar pulse-online" />
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium truncate">{currentAgent.username}</p>
-              <p className="text-xs text-sidebar-foreground/60 truncate">{currentAgent.hostname}</p>
-            </div>
-            <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
+            {!collapsed && (
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-semibold truncate">{currentAgent.username}</p>
+                <p className="text-xs text-muted-foreground truncate">{currentAgent.hostname}</p>
+              </div>
+            )}
           </div>
         </div>
       )}
