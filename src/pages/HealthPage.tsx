@@ -108,6 +108,32 @@ Your system is performing within acceptable parameters. Continue regular mainten
         }
       />
 
+      {/* Boost Your System - Prominent Card */}
+      <Card className="glass-card border-accent/30 bg-gradient-to-r from-accent/10 via-primary/10 to-accent/10 overflow-hidden relative">
+        <div className="absolute inset-0 bg-gradient-to-r from-accent/5 to-primary/5 animate-pulse" />
+        <CardContent className="py-6 relative">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent to-primary flex items-center justify-center shadow-lg glow-accent">
+                <Zap className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-bold text-foreground">Boost Your System</h3>
+                <p className="text-muted-foreground">Clear temp files, optimize memory, and speed up your PC</p>
+              </div>
+            </div>
+            <Button 
+              onClick={handleBoost} 
+              size="lg" 
+              className="bg-gradient-to-r from-accent to-primary hover:from-accent/90 hover:to-primary/90 text-white gap-2 shadow-lg"
+            >
+              <Zap className="w-5 h-5" />
+              Optimize Now
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Metrics Row */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
         <MetricCard
