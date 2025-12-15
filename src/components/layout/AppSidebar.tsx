@@ -50,47 +50,41 @@ export function AppSidebar() {
     >
       {/* Header with Logo and Theme Toggle */}
       <div className="flex items-center justify-between p-5 border-b border-border/30">
-        {!collapsed && (
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg glow-primary">
-              <Zap className="w-5 h-5 text-white" />
-            </div>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-lg glow-primary">
+            <Zap className="w-5 h-5 text-white" />
+          </div>
+          {!collapsed && (
             <div>
               <span className="font-bold text-xl tracking-tight">SYS AI</span>
               <p className="text-xs text-muted-foreground">IT Support</p>
             </div>
-          </div>
-        )}
-        {collapsed && (
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mx-auto shadow-lg glow-primary">
-            <Zap className="w-5 h-5 text-white" />
-          </div>
-        )}
-      </div>
-
-      {/* Theme Toggle Button */}
-      <div className={cn("px-3 pt-3", collapsed && "flex justify-center")}>
-        <Button
-          variant="outline"
-          size={collapsed ? "icon" : "default"}
+          )}
+        </div>
+        
+        {/* Theme Toggle - Groww style */}
+        <button
           onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
           className={cn(
-            "border-border/50 bg-secondary/50 hover:bg-secondary transition-all duration-200",
-            !collapsed && "w-full justify-start gap-3"
+            "relative w-14 h-7 rounded-full transition-colors duration-300 focus:outline-none",
+            theme === 'dark' ? 'bg-primary/20' : 'bg-secondary'
           )}
         >
-          {theme === 'dark' ? (
-            <>
-              <Sun className="w-4 h-4 text-yellow-500" />
-              {!collapsed && <span className="text-sm">Light Mode</span>}
-            </>
-          ) : (
-            <>
-              <Moon className="w-4 h-4 text-primary" />
-              {!collapsed && <span className="text-sm">Dark Mode</span>}
-            </>
-          )}
-        </Button>
+          <div
+            className={cn(
+              "absolute top-0.5 w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 shadow-md",
+              theme === 'dark' 
+                ? 'left-7 bg-primary' 
+                : 'left-0.5 bg-background border border-border'
+            )}
+          >
+            {theme === 'dark' ? (
+              <Moon className="w-3.5 h-3.5 text-white" />
+            ) : (
+              <Sun className="w-3.5 h-3.5 text-yellow-500" />
+            )}
+          </div>
+        </button>
       </div>
 
       {/* Toggle Button */}
