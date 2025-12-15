@@ -11,7 +11,10 @@ import {
   ChevronLeft,
   ChevronRight,
   Zap,
+  Sun,
+  Moon,
 } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useState } from 'react';
@@ -35,6 +38,7 @@ export function AppSidebar() {
   const [collapsed, setCollapsed] = useState(false);
   const location = useLocation();
   const { isAdmin, currentAgent } = useApp();
+  const { theme, setTheme } = useTheme();
 
   return (
     <aside
@@ -44,7 +48,7 @@ export function AppSidebar() {
         collapsed ? 'w-20' : 'w-72'
       )}
     >
-      {/* Logo */}
+      {/* Header with Logo and Theme Toggle */}
       <div className="flex items-center justify-between p-5 border-b border-border/30">
         {!collapsed && (
           <div className="flex items-center gap-3">
@@ -62,6 +66,31 @@ export function AppSidebar() {
             <Zap className="w-5 h-5 text-white" />
           </div>
         )}
+      </div>
+
+      {/* Theme Toggle Button */}
+      <div className={cn("px-3 pt-3", collapsed && "flex justify-center")}>
+        <Button
+          variant="outline"
+          size={collapsed ? "icon" : "default"}
+          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          className={cn(
+            "border-border/50 bg-secondary/50 hover:bg-secondary transition-all duration-200",
+            !collapsed && "w-full justify-start gap-3"
+          )}
+        >
+          {theme === 'dark' ? (
+            <>
+              <Sun className="w-4 h-4 text-yellow-500" />
+              {!collapsed && <span className="text-sm">Light Mode</span>}
+            </>
+          ) : (
+            <>
+              <Moon className="w-4 h-4 text-primary" />
+              {!collapsed && <span className="text-sm">Dark Mode</span>}
+            </>
+          )}
+        </Button>
       </div>
 
       {/* Toggle Button */}
