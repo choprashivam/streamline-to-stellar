@@ -13,6 +13,7 @@ import TroubleshootPage from "./pages/TroubleshootPage";
 import AppInstallerPage from "./pages/AppInstallerPage";
 import HealthPage from "./pages/HealthPage";
 import AdminPortalPage from "./pages/AdminPortalPage";
+import AssetManagementPage from "./pages/AssetManagementPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/app-installer" element={<AppInstallerPage />} />
               <Route path="/health" element={<HealthPage />} />
               <Route path="/admin" element={<AdminPortalPage />} />
+              <Route path="/assets" element={<AssetManagementPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

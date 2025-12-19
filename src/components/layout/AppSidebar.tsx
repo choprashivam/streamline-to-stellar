@@ -13,6 +13,7 @@ import {
   Zap,
   Sun,
   Moon,
+  Package,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
@@ -32,6 +33,7 @@ const navItems = [
 
 const adminItems = [
   { to: "/admin", icon: Shield, label: "Admin Portal" },
+  { to: "/assets", icon: Package, label: "Asset Management" },
 ];
 
 export function AppSidebar() {
